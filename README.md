@@ -1,6 +1,6 @@
 # CodersCamp 2021 - JoaoTeam
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
@@ -20,6 +20,7 @@ Look at [emoji key](https://allcontributors.org/docs/en/emoji-key):
     <td align="center"><a href="https://github.com/J-emi"><img src="https://avatars.githubusercontent.com/u/89035278?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Justyna</b></sub></a><br /><a href="https://github.com/CodersCamp 2021 Joao's Team/JoaoTeam-Project-3/commits?author=J-emi" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/spidero7"><img src="https://avatars.githubusercontent.com/u/64019212?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bartłomiej Pająk</b></sub></a><br /><a href="https://github.com/CodersCamp 2021 Joao's Team/JoaoTeam-Project-3/commits?author=spidero7" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/itspatys"><img src="https://avatars.githubusercontent.com/u/58817270?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Patryk Pierzchała</b></sub></a><br /><a href="https://github.com/CodersCamp 2021 Joao's Team/JoaoTeam-Project-3/commits?author=itspatys" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/werpietrzak"><img src="https://avatars.githubusercontent.com/u/95078050?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Wer Pietrzak</b></sub></a><br /><a href="https://github.com/CodersCamp 2021 Joao's Team/JoaoTeam-Project-3/commits?author=werpietrzak" title="Code">💻</a></td>
   </tr>
 </table>
 
