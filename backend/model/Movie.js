@@ -7,6 +7,6 @@ const movieSchema = new mongoose.Schema({
     genres: [String],
     description: String,
     poster: String
-})
+}, { collection: 'movies' })
 
 module.exports = mongoose.model('Movie', movieSchema)

@@ -7,6 +7,7 @@ const { port } = require('./config')
 const apiRouter = require('./routes/api')
 const authUser = require('./routes/auth')
 const postRoute = require('./routes/myAccount')
+const upcomingMovies = require('./routes/upcomingMovies')
 
 //database
 require('./db/mongoose')
@@ -18,6 +19,7 @@ app.use(express.json())
 app.use('/', apiRouter)
 app.use('/', authUser)
 app.use('/', postRoute)
+app.use('/', upcomingMovies)
 
 //server
 app.listen(port, () => {
