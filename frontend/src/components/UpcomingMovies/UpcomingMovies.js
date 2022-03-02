@@ -46,10 +46,8 @@ const UpcomingMovies = () => {
 
     return (
         <div className="carousel-demo">
-            <div className="card">
-                <Carousel value={movies} numVisible={3} numScroll={1} responsiveOptions={responsiveOptions} className="custom-carousel" circular
-                    autoplayInterval={5000} itemTemplate={movieTemplate} header={<h5>Upcoming Movies</h5>} />
-            </div>
+            <Carousel value={movies} numVisible={4} numScroll={1} responsiveOptions={responsiveOptions} className="custom-carousel" circular
+                autoplayInterval={5000} itemTemplate={movieTemplate} header={<h5 className='upcoming'>UPCOMING MOVIES</h5>} />
         </div>
     );
 }
