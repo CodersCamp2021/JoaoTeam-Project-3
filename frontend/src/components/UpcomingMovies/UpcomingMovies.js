@@ -31,10 +31,10 @@ const UpcomingMovies = () => {
 
     const movieTemplate = (movie) => {
         return (
-            <div className="product-item">
-                <div className="product-item-content">
+            <div className="movie-item">
+                <div className="movie-item-content">
                     <div className="mb-3">
-                        <img src={`${movie.poster}`} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={movie.title} className="product-image" />
+                        <img src={`${movie.poster}`} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={movie.title} className="poster" />
                     </div>
                     <div>
                         <h4 className="mb-1">{movie.title}</h4>
@@ -47,7 +47,7 @@ const UpcomingMovies = () => {
     return (
         <div className="carousel-demo">
             <Carousel value={movies} numVisible={4} numScroll={1} responsiveOptions={responsiveOptions} className="custom-carousel" circular
-                autoplayInterval={5000} itemTemplate={movieTemplate} header={<h5 className='upcoming'>UPCOMING MOVIES</h5>} />
+                autoplayInterval={5000} itemTemplate={movieTemplate} header={<p className='upcoming'>UPCOMING MOVIES</p>} />
         </div>
     );
 }
