@@ -10,7 +10,7 @@ const accountRoute = require('./routes/myAccount')
 const postRoute = require('./routes/myAccount')
 const cinemaRoute = require('./routes/cinema')
 const upcomingMovies = require('./routes/upcomingMovies')
-
+const moviesManagement = require('./routes/moviesManagement')
 
 //database
 require('./db/mongoose')
@@ -25,7 +25,7 @@ app.use('/', accountRoute)
 app.use('/', postRoute)
 app.use('/', cinemaRoute)
 app.use('/', upcomingMovies)
-
+app.use('/', moviesManagement)
 
 //server
 app.listen(port, () => {
