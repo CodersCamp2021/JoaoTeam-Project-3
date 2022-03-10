@@ -15,7 +15,7 @@ router.get('/movies', (req, res) => {
 })
 
 //Adding new movie
-// curl -X POST http://localhost:3000/movies/new -H 'Content-Type: application/json' -d '{"title": "testTitle", "year": 2022, "director": "testDirector","genres": ["testGenre1","testGenre2"], "description": "test test test", "poster": "https://test.poster.com"}'
+// curl -X POST http://localhost:3000/movies/new -H 'Content-Type: application/json' -d '{"title": "testTitle", "year": 2022, "director": "testDirector","genres": ["testGenre1","testGenre2"], "description": "test test test", "poster": "https://test.poster.com", "length": "0h00m", "stars":["star 1", "star 2", "star 3"]}
 
 router.post('/movies/new', verifyToken, isAdmin, async (req, res) => {
     const movie = new Movie({
@@ -24,7 +24,9 @@ router.post('/movies/new', verifyToken, isAdmin, async (req, res) => {
         director: req.body.director,
         genres: req.body.genres,
         description: req.body.description,
-        poster: req.body.poster
+        poster: req.body.poster,
+        length: req.body.lenght,
+        stars: req.body.stars
     })
 
     try {
