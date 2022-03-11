@@ -3,9 +3,12 @@ const Movie = require('../model/Movie')
 const verifyToken = require('./verifyToken')
 const isAdmin = require('../controllers/api/middlewares/isAdmin')
 const mongoose = require('mongoose')
+const cors = require("cors");
+
+router.use(cors())
 
 //All movies route 
-router.get('/movies', (req, res) => {
+router.get('/movies', cors(), (req, res) => {
     Movie.find({}, (err, docs) => {
         if (err) {
             return res.status(500).send("server error - /movies GET")
@@ -16,8 +19,8 @@ router.get('/movies', (req, res) => {
 
 //Adding new movie
 // curl -X POST http://localhost:3000/movies/new -H 'Content-Type: application/json' -d '{"title": "testTitle", "year": 2022, "director": "testDirector","genres": ["testGenre1","testGenre2"], "description": "test test test", "poster": "https://test.poster.com", "length": "0h00m", "stars":["star 1", "star 2", "star 3"]}
-
-router.post('/movies/new', verifyToken, isAdmin, async (req, res) => {
+//verifyToken, isAdmin,
+router.post('/movies/new', cors(), async (req, res) => {
     const movie = new Movie({
         title: req.body.title,
         year: req.body.year,

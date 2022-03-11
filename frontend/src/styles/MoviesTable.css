@@ -36,3 +36,25 @@
         width: 100%;
     }
 }
+
+.card {
+    margin: 2%;
+}
+
+.table-title {
+    font-size: 1.3rem;
+    margin-left: 1rem;
+
+}
+
+.genres-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    column-gap: 5%;
+    row-gap: 10%;
+    margin-bottom: 3rem;
+}
+
+.p-checkbox-label {
+    margin:.5rem;
+}
