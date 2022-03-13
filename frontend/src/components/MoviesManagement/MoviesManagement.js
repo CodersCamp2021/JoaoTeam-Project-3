@@ -15,10 +15,11 @@ import '../../styles/MoviesTable.css';
 const MoviesTable = () => {
 
     let emptyMovie = {
+        _id: '',
         title: '',
         year: 2022,
         director: '',
-        genre: null,
+        genres: [''],
         description: '',
         poster: '',
         length: '0h00m',
@@ -28,9 +29,7 @@ const MoviesTable = () => {
     const [movies, setMovies] = useState(null);
     const [movieDialog, setMovieDialog] = useState(false);
     const [deleteMovieDialog, setDeleteMovieDialog] = useState(false);
-    const [deleteMoviesDialog, setDeleteMoviesDialog] = useState(false);
     const [movie, setMovie] = useState(emptyMovie);
-    const [selectedMovies, setSelectedMovies] = useState([]);
     const [submitted, setSubmitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState(null);
     const [genres, setGenres] = useState([]);
@@ -42,7 +41,7 @@ const MoviesTable = () => {
         await fetch('http://localhost:3000/movies')
             .then(res => res.json())
             .then(data => setMovies(data));
-    }, []);
+    }, [movies]);
 
 
     const openNew = () => {
@@ -60,62 +59,78 @@ const MoviesTable = () => {
         setDeleteMovieDialog(false);
     }
 
-    const hideDeleteMoviesDialog = () => {
-        setDeleteMoviesDialog(false);
-    }
-
     const saveMovie = () => {
-        //TODO: POST call to backend
         setSubmitted(true);
 
         let _movies = [...movies];
         let _movie = { ...movie };
 
-        _movies.push(_movie);
+        _movie['stars'] = _movie['stars'] == '' ? '' : _movie['stars'].split(', ')
+
         fetch('http://localhost:3000/movies/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(_movie)
-        });
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Movie Saved', life: 3000 });
+        })
+            .then(response => {
+                // check for error response
+                if (!response.ok) {
+                    const data = response.json()
+                    // get error message from body or default to response status
+                    const errorMessage = (data && data.message) || response.status;
+                    return Promise.reject(errorMessage);
+                }
+                toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Movie Saved', life: 3000 });
+            })
+            .catch(error => {
+                console.error(error);
+                toast.current.show({ severity: 'error', summary: 'Error', detail: `Could not saved movie! ${error.toString()}`, life: 3000 });
+            });
 
         setMovies(_movies);
         setMovieDialog(false);
         setMovie(emptyMovie);
+        setGenres([]);
     }
 
     const deleteMovie = () => {
-        let _movies = movies.filter(val => val.id !== movie.id); //TODO: DELETE call to backend
-        setMovies(_movies);
+        fetch(`http://localhost:3000/movies/${movie._id}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                // check for error response
+                if (!response.ok) {
+                    const data = response.json()
+                    // get error message from body or default to response status
+                    const errorMessage = (data && data.message) || response.status;
+                    return Promise.reject(errorMessage);
+                }
+                toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Movie Deleted', life: 3000 });
+            })
+            .catch(error => {
+                console.error(error);
+                toast.current.show({ severity: 'error', summary: 'Error', detail: `Could not delete movie! ${error.toString()}`, life: 3000 });
+            });
+        const _movies = movies.filter(val => val.id !== movie._id);
+
         setDeleteMovieDialog(false);
-        setMovie(emptyMovie);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Movie Deleted', life: 3000 });
-    }
-
-
-    const confirmDeleteSelected = () => {
-        setDeleteMoviesDialog(true);
-    }
-
-    const deleteSelectedMovies = () => {
-        //TODO: DELETE call to backend
-        let _movies = movies.filter(val => !selectedMovies.includes(val));
         setMovies(_movies);
-        setDeleteMoviesDialog(false);
-        setSelectedMovies(null);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Movies Deleted', life: 3000 });
+        setMovie(emptyMovie);
+
     }
 
-    const ongenreChange = (e) => {
+    const onGenreChange = (e) => {
         let selectedGenres = [...genres];
         if (e.checked)
             selectedGenres.push(e.value);
         else
             selectedGenres.splice(selectedGenres.indexOf(e.value), 1);
-
+        let _movie = { ...movie };
+        _movie['genres'] = selectedGenres;
         setGenres(selectedGenres);
+        setMovie(_movie);
     }
 
     const onInputChange = (e, name) => {
@@ -138,9 +153,21 @@ const MoviesTable = () => {
         return (
             <React.Fragment>
                 <Button label="New" icon="pi pi-plus" className="p-button-success mr-2" onClick={openNew} />
-                <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedMovies || !selectedMovies.length} />
             </React.Fragment>
         )
+    }
+
+    const confirmDeleteMovie = (movie) => {
+        setMovie(movie);
+        setDeleteMovieDialog(true);
+    }
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <React.Fragment>
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeleteMovie(rowData)} />
+            </React.Fragment>
+        );
     }
 
     const posterBodyTemplate = (movie) => {
@@ -168,12 +195,6 @@ const MoviesTable = () => {
             <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteMovie} />
         </React.Fragment>
     );
-    const deleteMoviesDialogFooter = (
-        <React.Fragment>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteMoviesDialog} />
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteSelectedMovies} />
-        </React.Fragment>
-    );
 
     return (
         <div className="datatable-crud-demo">
@@ -182,17 +203,17 @@ const MoviesTable = () => {
             <div className="card">
                 <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
 
-                <DataTable ref={dt} value={movies} selectionMode="multiple" selection={selectedMovies} onSelectionChange={(e) => setSelectedMovies(e.value)}
-                    dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+                <DataTable ref={dt} value={movies} dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} movies"
-                    globalFilter={globalFilter} header={header} responsiveLayout="scroll" rowKey={movie.id}>
-                    <Column selectionMode="multiple" headerStyle={{ width: '3rem' }} exportable={false}></Column>
+                    globalFilter={globalFilter} header={header} responsiveLayout="scroll" rowKey={movie._id}>
+                    <Column headerStyle={{ width: '3rem' }} exportable={false}></Column>
                     <Column field="title" header="Title" sortable style={{ minWidth: '16rem' }}></Column>
                     <Column field="year" header="Year" sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="director" header="Director" sortable style={{ minWidth: '12rem' }}></Column>
                     <Column field="poster" header="Poster" body={posterBodyTemplate}></Column>
                     <Column field="length" header="Length" sortable style={{ minWidth: '10rem' }}></Column>
+                    <Column header="" body={actionBodyTemplate} exportable={false} style={{ minWidth: '8rem' }}></Column>
                 </DataTable>
             </div>
 
@@ -212,51 +233,51 @@ const MoviesTable = () => {
                     <label className="mb-3">Genres</label>
                     <div className="genres-grid">
                         <div>
-                            <Checkbox inputId="genre1" name="genre" value="Drama" onChange={ongenreChange} checked={genres.includes('Drama')} />
+                            <Checkbox inputId="genre1" name="genres" value="Drama" onChange={onGenreChange} checked={genres.includes('Drama')} />
                             <label htmlFor="genre1" className="p-checkbox-label">Drama</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre2" name="genre" value="Comedy" onChange={ongenreChange} checked={genres.includes('Comedy')} />
+                            <Checkbox inputId="genre2" name="genres" value="Comedy" onChange={onGenreChange} checked={genres.includes('Comedy')} />
                             <label htmlFor="genre2" className="p-checkbox-label">Comedy</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre3" name="genre" value="Action" onChange={ongenreChange} checked={genres.includes('Action')} />
+                            <Checkbox inputId="genre3" name="genres" value="Action" onChange={onGenreChange} checked={genres.includes('Action')} />
                             <label htmlFor="genre3" className="p-checkbox-label">Action</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre4" name="genre" value="Animation" onChange={ongenreChange} checked={genres.includes('Animation')} />
+                            <Checkbox inputId="genre4" name="genres" value="Animation" onChange={onGenreChange} checked={genres.includes('Animation')} />
                             <label htmlFor="genre4" className="p-checkbox-label">Animation</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre5" name="genre" value="Fantasy" onChange={ongenreChange} checked={genres.includes('Fantasy')} />
+                            <Checkbox inputId="genre5" name="genres" value="Fantasy" onChange={onGenreChange} checked={genres.includes('Fantasy')} />
                             <label htmlFor="genre5" className="p-checkbox-label">Fantasy</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre6" name="genre" value="Adventure" onChange={ongenreChange} checked={genres.includes('Adventure')} />
+                            <Checkbox inputId="genre6" name="genres" value="Adventure" onChange={onGenreChange} checked={genres.includes('Adventure')} />
                             <label htmlFor="genre6" className="p-checkbox-label">Adventure</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre7" name="genre" value="Crime" onChange={ongenreChange} checked={genres.includes('Crime')} />
+                            <Checkbox inputId="genre7" name="genres" value="Crime" onChange={onGenreChange} checked={genres.includes('Crime')} />
                             <label htmlFor="genre7" className="p-checkbox-label">Crime</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre8" name="genre" value="Romance" onChange={ongenreChange} checked={genres.includes('Romance')} />
+                            <Checkbox inputId="genre8" name="genres" value="Romance" onChange={onGenreChange} checked={genres.includes('Romance')} />
                             <label htmlFor="genre8" className="p-checkbox-label">Romance</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre9" name="genre" value="History" onChange={ongenreChange} checked={genres.includes('History')} />
+                            <Checkbox inputId="genre9" name="genres" value="History" onChange={onGenreChange} checked={genres.includes('History')} />
                             <label htmlFor="genre9" className="p-checkbox-label">History</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre10" name="genre" value="Biography" onChange={ongenreChange} checked={genres.includes('Biography')} />
+                            <Checkbox inputId="genre10" name="genres" value="Biography" onChange={onGenreChange} checked={genres.includes('Biography')} />
                             <label htmlFor="genre10" className="p-checkbox-label">Biography</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre11" name="genre" value="Musical" onChange={ongenreChange} checked={genres.includes('Musical')} />
+                            <Checkbox inputId="genre11" name="genres" value="Musical" onChange={onGenreChange} checked={genres.includes('Musical')} />
                             <label htmlFor="genre11" className="p-checkbox-label">Musical</label>
                         </div>
                         <div>
-                            <Checkbox inputId="genre12" name="genre" value="Sci-Fi" onChange={ongenreChange} checked={genres.includes('Sci-Fi')} />
+                            <Checkbox inputId="genre12" name="genres" value="Sci-Fi" onChange={onGenreChange} checked={genres.includes('Sci-Fi')} />
                             <label htmlFor="genre12" className="p-checkbox-label">Sci-Fi</label>
                         </div>
                     </div>
@@ -294,13 +315,6 @@ const MoviesTable = () => {
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                     {movie && <span>Are you sure you want to delete <b>{movie.name}</b>?</span>}
-                </div>
-            </Dialog>
-
-            <Dialog visible={deleteMoviesDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteMoviesDialogFooter} onHide={hideDeleteMoviesDialog}>
-                <div className="confirmation-content">
-                    <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
-                    {movie && <span>Are you sure you want to delete the selected movies?</span>}
                 </div>
             </Dialog>
         </div>
