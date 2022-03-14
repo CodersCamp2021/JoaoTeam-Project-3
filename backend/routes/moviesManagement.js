@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Movie = require('../model/Movie');
-const verifyToken = require('./verifyToken');
+const verifyToken = require('../middleware/verifyToken');
 const isAdmin = require('../controllers/api/middlewares/isAdmin');
 const mongoose = require('mongoose');
 const cors = require("cors");

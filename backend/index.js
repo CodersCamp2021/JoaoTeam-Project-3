@@ -35,6 +35,9 @@ app.use(cookieParser())
 
 //route middlewares
 app.use('/', apiRouter)
+app.use('/', cinemaRoute)
+app.use('/', upcomingMovies)
+app.use('/movies', moviesManagement)
 
 app.use('/register', registerRoute)
 app.use('/login', loginRoute)
@@ -44,10 +47,6 @@ app.use('/logout', logutRoute)
 app.use(verifyToken)
 app.use('/user-account', userAccountRoute)
 app.use('/admin-account', adminAccountRoute)
-
-app.use('/', cinemaRoute)
-app.use('/', upcomingMovies)
-app.use('/movies', moviesManagement)
 
 
 //server

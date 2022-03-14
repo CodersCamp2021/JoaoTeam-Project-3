@@ -27,6 +27,7 @@ function App() {
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route path="/" element={<Navbar />} />
 
 				<Route path="/" element={<Layout />}></Route>
 				{/* {public routes} */}
@@ -42,7 +43,7 @@ function App() {
 				{/* {protected admin routes} */}
 				<Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
 					<Route path="/admin-test" element={<TestAdminPage />} />
-          <Route path="/movies" element={<MoviesTable />} />
+					<Route path="/movies" element={<MoviesTable />} />
 				</Route>
 
 				{/* {catch all} */}
