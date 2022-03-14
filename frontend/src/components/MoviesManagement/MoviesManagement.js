@@ -10,6 +10,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
+import useAuth from '../../hooks/useAuth';
 import '../../styles/MoviesTable.css';
 
 const MoviesTable = () => {
@@ -37,9 +38,16 @@ const MoviesTable = () => {
     const toast = useRef(null);
     const dt = useRef(null);
 
+    const { auth } = useAuth();
+    const token = auth?.accessToken;
 
     useEffect(async () => {
-        await fetch('http://localhost:3000/movies')
+        console.log(token)
+        await fetch('http://localhost:3000/movies', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then(res => res.json())
             .then(data => setMovies(data));
     }, [movieChange]);
@@ -71,6 +79,7 @@ const MoviesTable = () => {
         fetch('http://localhost:3000/movies/new', {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(_movie)
@@ -100,7 +109,10 @@ const MoviesTable = () => {
     const deleteMovie = () => {
 
         fetch(`http://localhost:3000/movies/${movie._id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         })
             .then(response => {
                 // check for error response
