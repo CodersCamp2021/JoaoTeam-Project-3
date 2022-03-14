@@ -33,6 +33,7 @@ const MoviesTable = () => {
     const [submitted, setSubmitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState(null);
     const [genres, setGenres] = useState([]);
+    const [movieChange, setMovieChange] = useState(0);
     const toast = useRef(null);
     const dt = useRef(null);
 
@@ -41,7 +42,7 @@ const MoviesTable = () => {
         await fetch('http://localhost:3000/movies')
             .then(res => res.json())
             .then(data => setMovies(data));
-    }, [movies]);
+    }, [movieChange]);
 
 
     const openNew = () => {
@@ -93,9 +94,11 @@ const MoviesTable = () => {
         setMovieDialog(false);
         setMovie(emptyMovie);
         setGenres([]);
+        setMovieChange(movieChange + 1);
     }
 
     const deleteMovie = () => {
+
         fetch(`http://localhost:3000/movies/${movie._id}`, {
             method: 'DELETE'
         })
@@ -118,7 +121,7 @@ const MoviesTable = () => {
         setDeleteMovieDialog(false);
         setMovies(_movies);
         setMovie(emptyMovie);
-
+        setMovieChange(movieChange - 1)
     }
 
     const onGenreChange = (e) => {
@@ -222,7 +225,6 @@ const MoviesTable = () => {
                 <div className="field">
                     <label htmlFor="title">Title</label>
                     <InputText id="title" value={movie.title} onChange={(e) => onInputChange(e, 'title')} required autoFocus className={classNames({ 'p-invalid': submitted && !movie.title })} />
-                    {submitted && !movie.name && <small className="p-error">Title is required.</small>}
                 </div>
                 <div className="field">
                     <label htmlFor="description">Description</label>

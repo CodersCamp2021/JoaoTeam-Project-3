@@ -26,7 +26,7 @@ router.post('/movies/new', cors(), verifyToken, isAdmin, async (req, res) => {
         genres: req.body.genres,
         description: req.body.description,
         poster: req.body.poster,
-        length: req.body.lenght,
+        length: req.body.length,
         stars: req.body.stars
     });
 
