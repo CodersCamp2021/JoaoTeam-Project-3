@@ -10,7 +10,8 @@ import { Checkbox } from 'primereact/checkbox';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
-import useAuth from '../../hooks/useAuth';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+
 import '../../styles/MoviesTable.css';
 
 const MoviesTable = () => {
@@ -38,17 +39,12 @@ const MoviesTable = () => {
     const toast = useRef(null);
     const dt = useRef(null);
 
-    const { auth } = useAuth();
-    const token = auth?.accessToken;
+
+    const axiosPrivate = useAxiosPrivate();
 
     useEffect(async () => {
-        console.log(token)
-        await fetch('http://localhost:3000/movies', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
+        await axiosPrivate.get('http://localhost:3000/movies')
+            .then(response => response.data)
             .then(data => setMovies(data));
     }, [movieChange]);
 
@@ -68,7 +64,7 @@ const MoviesTable = () => {
         setDeleteMovieDialog(false);
     }
 
-    const saveMovie = () => {
+    const saveMovie = async () => {
         setSubmitted(true);
 
         let _movies = [...movies];
@@ -76,20 +72,17 @@ const MoviesTable = () => {
 
         _movie['stars'] = _movie['stars'] == '' ? '' : _movie['stars'].split(', ')
 
-        fetch('http://localhost:3000/movies/new', {
-            method: 'POST',
+        await axiosPrivate.post('http://localhost:3000/movies/new', _movie, {
             headers: {
-                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(_movie)
+            }
         })
             .then(response => {
                 // check for error response
-                if (!response.ok) {
-                    const data = response.json()
+                if (response.statusText != 'Created') {
+                    const data = response.data
                     // get error message from body or default to response status
-                    const errorMessage = (data && data.message) || response.status;
+                    const errorMessage = (data && data.statusText) || response.status;
                     return Promise.reject(errorMessage);
                 }
                 toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Movie Saved', life: 3000 });
@@ -106,20 +99,15 @@ const MoviesTable = () => {
         setMovieChange(movieChange + 1);
     }
 
-    const deleteMovie = () => {
+    const deleteMovie = async () => {
 
-        fetch(`http://localhost:3000/movies/${movie._id}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        await axiosPrivate.delete(`http://localhost:3000/movies/${movie._id}`)
             .then(response => {
                 // check for error response
-                if (!response.ok) {
-                    const data = response.json()
+                if (response.statusText != 'OK') {
+                    const data = response.data
                     // get error message from body or default to response status
-                    const errorMessage = (data && data.message) || response.status;
+                    const errorMessage = (data && data.statusText) || response.status;
                     return Promise.reject(errorMessage);
                 }
                 toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Movie Deleted', life: 3000 });

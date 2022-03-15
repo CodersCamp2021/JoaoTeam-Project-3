@@ -3,11 +3,12 @@ const Movie = require('../model/Movie');
 const verifyToken = require('../middleware/verifyToken');
 const mongoose = require('mongoose');
 const cors = require("cors");
+const corsOptions = require('../config/corsOptions');
 
-router.use(cors());
+router.use(cors(corsOptions));
 
 //Display all movies
-router.get('/', cors(), verifyToken, (req, res) => {
+router.get('/', cors(corsOptions), verifyToken, (req, res) => {
     Movie.find({}, (err, docs) => {
         if (err) {
             return res.status(500).send("server error - /movies GET")
@@ -17,7 +18,7 @@ router.get('/', cors(), verifyToken, (req, res) => {
 });
 
 //Adding new movie
-router.post('/new', cors(), verifyToken, async (req, res) => {
+router.post('/new', cors(corsOptions), verifyToken, async (req, res) => {
     const movie = new Movie({
         title: req.body.title,
         year: req.body.year,
@@ -39,7 +40,7 @@ router.post('/new', cors(), verifyToken, async (req, res) => {
 });
 
 
-router.delete("/:id", verifyToken, async (req, res) => {
+router.delete("/:id", cors(corsOptions), verifyToken, async (req, res) => {
     const _id = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
         res.status(400).send("Invalid params");
