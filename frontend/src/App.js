@@ -9,7 +9,7 @@ import Login from './components/Auth/Login';
 import MyAccount from './components/Auth/MyAccount';
 import Layout from './components/Auth/Layout';
 import Unauthorized from './components/Auth/Unauthorized';
-import TestAdminPage from './components/TestComponent/TestAdminPage';
+import AdminPanel from './components/AdminPanel/AdminPanel';
 
 export const ROLES = {
 	Admin: 515,
@@ -42,7 +42,7 @@ function App() {
 				</Route>
 				{/* {protected admin routes} */}
 				<Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-					<Route path="/admin-test" element={<TestAdminPage />} />
+					<Route path="/admin-panel" element={<AdminPanel />} />
 					<Route path="/movies" element={<MoviesTable />} />
 				</Route>
 
