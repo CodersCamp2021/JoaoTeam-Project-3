@@ -1,24 +1,16 @@
-<<<<<<< HEAD
-=======
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
->>>>>>> cc26695bb15163b9de65698403f7a209bb3a3c9d
 @import './Auth.css';
 @import url(../styles/CarouselDemo.css);
 
 :root {
 	--font-style: 'Roboto', sans-serif;
-	--font-color: #C9356D;
-	--webkit-box-shadow: 0px 0px 5px 0px #C9356D;
-	--moz-box-shadow: 0px 0px 5px 0px #C9356D;
-	--box-shadow: 0px 0px 5px 0px #C9356D;
+	--font-color: #c9356d;
+	--webkit-box-shadow: 0px 0px 5px 0px #c9356d;
+	--moz-box-shadow: 0px 0px 5px 0px #c9356d;
+	--box-shadow: 0px 0px 5px 0px #c9356d;
 }
 
-<<<<<<< HEAD
-@import url(../styles/CarouselDemo.css);
-
-=======
->>>>>>> cc26695bb15163b9de65698403f7a209bb3a3c9d
 body {
 	background-color: #121212;
 	margin: 0;

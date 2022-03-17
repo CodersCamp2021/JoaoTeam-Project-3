@@ -9,12 +9,8 @@ import Login from './components/Auth/Login';
 import MyAccount from './components/Auth/MyAccount';
 import Layout from './components/Auth/Layout';
 import Unauthorized from './components/Auth/Unauthorized';
-<<<<<<< HEAD
-import TestAdminPage from './components/TestComponent/TestAdminPage';
 import BuyTicket from './components/Tickets/BuyTicket';
-=======
 import AdminPanel from './components/AdminPanel/AdminPanel';
->>>>>>> cc26695bb15163b9de65698403f7a209bb3a3c9d
 
 export const ROLES = {
 	Admin: 515,
