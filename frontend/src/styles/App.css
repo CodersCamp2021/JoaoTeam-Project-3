@@ -1,16 +1,24 @@
+<<<<<<< HEAD
+=======
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+>>>>>>> cc26695bb15163b9de65698403f7a209bb3a3c9d
 @import './Auth.css';
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap');
-
-:root {
-	--font-style: 'Fredoka', sans-serif;
-	--font-color: #b973c4;
-	--webkit-box-shadow: 0px 0px 5px 0px rgba(185, 115, 196, 1);
-	--moz-box-shadow: 0px 0px 5px 0px rgba(185, 115, 196, 1);
-	--box-shadow: 0px 0px 5px 0px rgba(185, 115, 196, 1);
-}
-
 @import url(../styles/CarouselDemo.css);
 
+:root {
+	--font-style: 'Roboto', sans-serif;
+	--font-color: #C9356D;
+	--webkit-box-shadow: 0px 0px 5px 0px #C9356D;
+	--moz-box-shadow: 0px 0px 5px 0px #C9356D;
+	--box-shadow: 0px 0px 5px 0px #C9356D;
+}
+
+<<<<<<< HEAD
+@import url(../styles/CarouselDemo.css);
+
+=======
+>>>>>>> cc26695bb15163b9de65698403f7a209bb3a3c9d
 body {
 	background-color: #121212;
 	margin: 0;
