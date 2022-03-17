@@ -36,7 +36,6 @@
 
 .inner-container {
 	display: flex;
-	justify-content: center;
 	flex-direction: column;
 	align-items: center;
 	padding: 100px;
@@ -45,6 +44,88 @@
 	-webkit-box-shadow: var(--webkit-box-shadow);
 	-moz-box-shadow: var(--moz-box-shadow);
 	box-shadow: var(--box-shadow);
+}
+
+.outer-container-but-ticket {
+	margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+}
+
+.inner-container-but-ticket {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 30px;
+	background-color: #1e1e1e;
+	color: var(--font-color);
+	-webkit-box-shadow: var(--webkit-box-shadow);
+	-moz-box-shadow: var(--moz-box-shadow);
+	box-shadow: var(--box-shadow);
+}
+
+.buy-ticket-title {
+	border-bottom: var(--font-color) solid 1px;
+}
+
+.buy-ticket-movie-info {
+	margin-top: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 20px;
+}
+
+.buy-ticket-details {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.buy-ticket-payment-options {
+	margin-top: 40px;
+}
+
+.buy-ticket-payment-option {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 20px;
+	justify-items: center;
+	align-items: center;
+	border-bottom: var(--font-color) solid 1px;
+	border-top: var(--font-color) solid 1px;
+	margin-bottom: 20px;
+}
+
+.buy-ticket-payment-option-payu,
+.buy-ticket-payment-option-blik,
+.buy-ticket-payment-option-visa {
+	cursor: pointer;
+}
+
+.buy-ticket-payment-option-payu {
+	width: 100px;
+	height: 100px;
+	background-image: url('https://cdn-icons-png.flaticon.com/512/825/825520.png');
+	background-size: 100px;
+}
+
+.buy-ticket-payment-option-blik {
+	width: 100px;
+	height: 50px;
+	background-image: url('https://iconape.com/wp-content/files/fw/164902/png/blik-logo.png');
+	background-size: 100px;
+}
+
+.buy-ticket-payment-option-visa {
+	width: 120px;
+	height: 120px;
+	background-image: url('https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/visa-512.png');
+	background-size: 120px;
+}
+
+.buy-ticket-sub-btn {
+	background: var(--font-color) !important;
 }
 
 .links {
