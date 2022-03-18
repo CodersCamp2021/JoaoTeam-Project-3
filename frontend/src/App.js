@@ -11,6 +11,7 @@ import Layout from './components/Auth/Layout';
 import Unauthorized from './components/Auth/Unauthorized';
 import BuyTicket from './components/Tickets/BuyTicket';
 import AdminPanel from './components/AdminPanel/AdminPanel';
+import BookTicket from './components/Tickets/BookTicket';
 
 export const ROLES = {
 	Admin: 515,
@@ -41,6 +42,7 @@ function App() {
 				<Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
 					<Route path="/my-account" element={<MyAccount />} />
 					<Route path="/buy-ticket" element={<BuyTicket />} />
+					<Route path="/book-ticket" element={<BookTicket />} />
 				</Route>
 				{/* {protected admin routes} */}
 				<Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>

@@ -65,10 +65,6 @@
 	box-shadow: var(--box-shadow);
 }
 
-.buy-ticket-title {
-	border-bottom: var(--font-color) solid 1px;
-}
-
 .buy-ticket-movie-info {
 	margin-top: 10px;
 	display: grid;
@@ -92,8 +88,6 @@
 	grid-gap: 20px;
 	justify-items: center;
 	align-items: center;
-	border-bottom: var(--font-color) solid 1px;
-	border-top: var(--font-color) solid 1px;
 	margin-bottom: 20px;
 }
 
@@ -126,6 +120,17 @@
 
 .buy-ticket-sub-btn {
 	background: var(--font-color) !important;
+}
+
+.book-ticket-amount {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 10px;
+	align-items: center;
+	justify-items: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 20px 0 20px 0;
 }
 
 .links {
