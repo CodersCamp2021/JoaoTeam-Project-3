@@ -9,6 +9,7 @@ import Login from './components/Auth/Login';
 import MyAccount from './components/Auth/MyAccount';
 import Layout from './components/Auth/Layout';
 import Unauthorized from './components/Auth/Unauthorized';
+import CinemasManagement from './components/CinemasManagement/CinemasManagement'
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import MovieInfo from './components/MovieInfo/MovieInfo';
 
@@ -44,6 +45,7 @@ function App() {
 				</Route>
 				{/* {protected admin routes} */}
 				<Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+					<Route path="/cinemas-management" element={<CinemasManagement />} />
 					<Route path="/admin-panel" element={<AdminPanel />} />
 					<Route path="/movies" element={<MoviesTable />} />
 				</Route>
