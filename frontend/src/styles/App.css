@@ -2,6 +2,7 @@
 
 @import './Auth.css';
 @import url(../styles/CarouselDemo.css);
+@import url(./Tickets.css);
 
 :root {
 	--font-style: 'Roboto', sans-serif;

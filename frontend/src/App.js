@@ -9,7 +9,6 @@ import Login from './components/Auth/Login';
 import MyAccount from './components/Auth/MyAccount';
 import Layout from './components/Auth/Layout';
 import Unauthorized from './components/Auth/Unauthorized';
-import BuyTicket from './components/Tickets/BuyTicket';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import BookTicket from './components/Tickets/BookTicket';
 
@@ -41,7 +40,6 @@ function App() {
 				{/* {protected user routes} */}
 				<Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
 					<Route path="/my-account" element={<MyAccount />} />
-					<Route path="/buy-ticket" element={<BuyTicket />} />
 					<Route path="/book-ticket" element={<BookTicket />} />
 				</Route>
 				{/* {protected admin routes} */}
