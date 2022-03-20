@@ -30,7 +30,12 @@ function BookTicket() {
 						</div>
 					</div>
 					<div className="book-ticket-amount">
-						<Button onClick={handleMinus} type="submit" label="-" className="buy-ticket-sub-btn" />
+						<Button
+							onClick={handleMinus}
+							type="submit"
+							label="-"
+							className="buy-ticket-sub-btn p-button"
+						/>
 						<span>{count}</span>
 						<Button onClick={handlePlus} type="submit" label="+" className="buy-ticket-sub-btn" />
 					</div>
