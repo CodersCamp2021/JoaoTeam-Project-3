@@ -1,0 +1,130 @@
+.ticket-outer-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.ticket-inner-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.ticket-title {
+	margin-bottom: 40px;
+	color: var(--font-color);
+	display: flex;
+	justify-content: center;
+}
+
+.ticket-poster {
+	-webkit-box-shadow: var(--webkit-box-shadow);
+	-moz-box-shadow: var(--moz-box-shadow);
+	box-shadow: var(--box-shadow);
+}
+
+.ticket-movie-title {
+	font-size: 1.3rem;
+}
+
+.ticket-info {
+	font-size: 1.2rem;
+}
+
+.ticket-container {
+	margin-top: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 120px;
+}
+
+.ticket-details {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: azure;
+}
+
+.ticket-quantity-btn {
+	background: var(--font-color) !important;
+	font-size: 1.5rem !important;
+	border-radius: 15px !important;
+}
+
+.ticket-btn-submit {
+	background: var(--font-color) !important;
+	font-size: 1.2rem !important;
+	border-radius: 15px !important;
+	min-width: 150px !important;
+	min-height: 50px;
+}
+
+.ticket-btn-submit-container {
+	display: flex;
+	justify-content: center;
+}
+
+.ticket-quantity-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-items: center;
+	justify-items: center;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	padding: 20px 0 20px 0;
+}
+
+.ticket-quantity {
+	font-size: 1.5rem;
+}
+
+.buy-ticket-payment-options {
+	margin-top: 40px;
+}
+
+.buy-ticket-payment-option {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 20px;
+	justify-items: center;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.buy-ticket-payment-option-payu,
+.buy-ticket-payment-option-blik,
+.buy-ticket-payment-option-visa {
+	cursor: pointer;
+}
+
+.buy-ticket-payment-option-payu {
+	width: 100px;
+	height: 100px;
+	background-image: url('https://cdn-icons-png.flaticon.com/512/825/825520.png');
+	background-size: 100px;
+}
+
+.buy-ticket-payment-option-blik {
+	width: 100px;
+	height: 50px;
+	background-image: url('https://iconape.com/wp-content/files/fw/164902/png/blik-logo.png');
+	background-size: 100px;
+}
+
+.buy-ticket-payment-option-visa {
+	width: 120px;
+	height: 120px;
+	background-image: url('https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/visa-512.png');
+	background-size: 120px;
+}
+
+@media only screen and (max-width: 1000px) {
+	.ticket-container {
+		grid-template-columns: 1fr;
+	}
+
+	.outer-container-but-ticket {
+		margin-bottom: 30px;
+	}
+}

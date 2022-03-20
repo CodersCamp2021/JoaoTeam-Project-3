@@ -11,6 +11,7 @@ import Layout from './components/Auth/Layout';
 import Unauthorized from './components/Auth/Unauthorized';
 import CinemasManagement from './components/CinemasManagement/CinemasManagement'
 import AdminPanel from './components/AdminPanel/AdminPanel';
+import BookTicket from './components/Tickets/BookTicket';
 
 export const ROLES = {
 	Admin: 515,
@@ -40,6 +41,7 @@ function App() {
 				{/* {protected user routes} */}
 				<Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
 					<Route path="/my-account" element={<MyAccount />} />
+					<Route path="/book-ticket" element={<BookTicket />} />
 				</Route>
 				{/* {protected admin routes} */}
 				<Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
